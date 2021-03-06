@@ -16,8 +16,7 @@ const options = {
 let postInitialURL = 'https://id.twitch.tv/oauth2/token?client_id=4z8jrmlca65cyeio9vvrsc99xe5c70&client_secret=5cdgh9tavfxzllf6h5rophgi580uo1&grant_type=client_credentials'
 
 let initialPostCall  = httpPostAsync(null, postInitialURL, function(responseText) {
-    let access_token = JSON.parse(responseText)['access_token']
-    console.log(access_token);
+    let access_token = JSON.parse(responseText)['access_token'];
     
     const clipOptions = {
         //'https://api.twitch.tv/helix/users?login=blueexabyte',
@@ -30,7 +29,7 @@ let initialPostCall  = httpPostAsync(null, postInitialURL, function(responseText
     }
 
     let strResponseHttpRequest = httpGetAsync(clipOptions.headers, clipOptions.url, function(responseText) {
-        console.log("get call", responseText);
+        //console.log("get call", responseText);
         
         let apiResult = JSON.parse(responseText);
         let clipsArray = [];
@@ -41,12 +40,12 @@ let initialPostCall  = httpPostAsync(null, postInitialURL, function(responseText
         clipURL = sourcePre + String(clipsArray[Math.floor(Math.random() * clipsArray.length)]) + sourceSuff;
         console.log(clipURL);
         document.getElementById('displayFrame').src = clipURL;
-        let iframe = document.querySelector('iframe');
-        let player = new Twitch.Player(iframe);
-
     });
 });
 
+let iframe = document.querySelector('iframe');
+let player = new Twitch.Player(iframe);
+console.log("player", player);
 player.on('ENDED', function() {
     console.log('Video play completed');
 });
