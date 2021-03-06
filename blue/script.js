@@ -1,7 +1,22 @@
 let clipURL = 'test'
 let sourcePre = 'https://clips.twitch.tv/embed?clip='
 let sourceSuff = '&parent=www.blueexabyte.github.io&parent=blueexabyte.github.io&autoplay=true'
-let brodcasterID = '58115189';
+let brodcasterID = '58115189'; //186745142
+
+/* ----------------------------------------- COMFY JS ------------------------------------------------------------*/
+const twitchTvHandle = "BlueExabyte"; //"sooomoza"
+const PAUSE_DURATION = 30 * 1000; // 30 seconds
+const DISPLAY_DURATION = 10 * 1000; // 10 seconds
+
+ComfyJS.Init(twitchTvHandle);
+ComfyJS.onCommand = (user, command, message, flags, extra) => {
+  console.log(`!${command} was typed in chat`);
+};
+
+ComfyJS.onChat = (user, message, flags, self, extra) => {
+  console.log(user + ":", message);
+};
+/* ----------------------------------------- COMFY JS END----------------------------------------------------------*/
 
 const options = {
     url: 'https://id.twitch.tv/oauth2/token',
@@ -14,38 +29,43 @@ const options = {
 };
 
 let postInitialURL = 'https://id.twitch.tv/oauth2/token?client_id=4z8jrmlca65cyeio9vvrsc99xe5c70&client_secret=5cdgh9tavfxzllf6h5rophgi580uo1&grant_type=client_credentials'
+initialPostFunction();
 
-let initialPostCall  = httpPostAsync(null, postInitialURL, function(responseText) {
-    let access_token = JSON.parse(responseText)['access_token'];
-    
-    const clipOptions = {
-        //'https://api.twitch.tv/helix/users?login=blueexabyte',
-        url: 'https://api.twitch.tv/helix/clips?broadcaster_id=' + brodcasterID + '&first=100',
-        method: 'GET',
-        headers:{
-            'Client-ID': '4z8jrmlca65cyeio9vvrsc99xe5c70',
-            'Authorization': 'Bearer ' + access_token
-        }
-    }
-
-    let strResponseHttpRequest = httpGetAsync(clipOptions.headers, clipOptions.url, function(responseText) {
-        //console.log("get call", responseText);
+function initialPostFunction() {
+    let initialPostCall  = httpPostAsync(null, postInitialURL, function(responseText) {
+        let access_token = JSON.parse(responseText)['access_token'];
         
-        let apiResult = JSON.parse(responseText);
-        let clipsArray = [];
-        for (let i = 0; i < (apiResult['data'].length); i++) {
-            clipsArray.push(apiResult['data'][i]['id']);
+        const clipOptions = {
+            //'https://api.twitch.tv/helix/users?login=blueexabyte',
+            url: 'https://api.twitch.tv/helix/clips?broadcaster_id=' + brodcasterID + '&first=100',
+            method: 'GET',
+            headers:{
+                'Client-ID': '4z8jrmlca65cyeio9vvrsc99xe5c70',
+                'Authorization': 'Bearer ' + access_token
+            }
         }
 
-        clipURL = sourcePre + String(clipsArray[Math.floor(Math.random() * clipsArray.length)]) + sourceSuff;
-        console.log(clipURL);
-        document.getElementById('displayFrame').src = clipURL;
+        let strResponseHttpRequest = httpGetAsync(clipOptions.headers, clipOptions.url, function(responseText) {
+            //console.log("get call", responseText);
+            
+            let apiResult = JSON.parse(responseText);
+            let clipsArray = [];
+            for (let i = 0; i < (apiResult['data'].length); i++) {
+                clipsArray.push(apiResult['data'][i]['id']);
+            }
+
+            clipURL = sourcePre + String(clipsArray[Math.floor(Math.random() * clipsArray.length)]) + sourceSuff;
+            console.log(clipURL);
+            document.getElementById('displayFrame').src = clipURL;
+        });
     });
-});
+}
 
 let iframe = document.querySelector('iframe');
 let player = new Twitch.Player(iframe);
+
 console.log("player", player);
+
 player.on('ENDED', function() {
     console.log('Video play completed');
 });
