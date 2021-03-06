@@ -41,7 +41,14 @@ let initialPostCall  = httpPostAsync(null, postInitialURL, function(responseText
         clipURL = sourcePre + String(clipsArray[Math.floor(Math.random() * clipsArray.length)]) + sourceSuff;
         console.log(clipURL);
         document.getElementById('displayFrame').src = clipURL;
+        let iframe = document.querySelector('iframe');
+        let player = new Twitch.Player(iframe);
+
     });
+});
+
+player.on('ENDED', function() {
+    console.log('Video play completed');
 });
 
 // POST CALL
