@@ -57,6 +57,17 @@ function initialPostFunction() {
             clipURL = sourcePre + String(clipsArray[Math.floor(Math.random() * clipsArray.length)]) + sourceSuff;
             console.log(clipURL);
             document.getElementById('displayFrame').src = clipURL;
+
+            console.log("checking to see if updated");
+        
+            let iframe = document.querySelector('iframe');
+            let player = new Twitch.Player(iframe);
+        
+            console.log("player", player);
+        
+            player.on('ENDED', function() {
+                console.log('Video play completed');
+            });
         });
     });
 }
@@ -87,17 +98,4 @@ function httpGetAsync(headers, url, callback)
     xmlHttp.setRequestHeader('Authorization', headers['Authorization']);
     xmlHttp.send(null);
     return xmlHttp.responseText;
-}
-
-window.onload = function(){
-    console.log("checking to see if updated");
-
-    let iframe = document.querySelector('iframe');
-    let player = new Twitch.Player(iframe);
-
-    console.log("player", player);
-
-    player.on('ENDED', function() {
-        console.log('Video play completed');
-    });
 }
