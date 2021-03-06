@@ -60,6 +60,7 @@ function initialPostFunction() {
         });
     });
 }
+console.log("checking to see if updated");
 
 let iframe = document.querySelector('iframe');
 let player = new Twitch.Player(iframe);
