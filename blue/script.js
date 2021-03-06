@@ -35,7 +35,7 @@ function initialPostFunction() {
         
         const clipOptions = {
             //'https://api.twitch.tv/helix/users?login=blueexabyte',
-            url: 'https://api.twitch.tv/helix/clips?broadcaster_id=' + brodcasterID + '&first=1000',
+            url: 'https://api.twitch.tv/helix/clips?broadcaster_id=' + brodcasterID + '&first=100',
             method: 'GET',
             headers:{
                 'Client-ID': '4z8jrmlca65cyeio9vvrsc99xe5c70',
