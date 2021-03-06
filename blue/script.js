@@ -60,17 +60,6 @@ function initialPostFunction() {
         });
     });
 }
-console.log("checking to see if updated");
-
-let iframe = document.querySelector('iframe');
-let player = new Twitch.Player(iframe);
-
-console.log("player", player);
-
-player.on('ENDED', function() {
-    console.log('Video play completed');
-});
-
 // POST CALL
 function httpPostAsync(data, url, callback) {
   
@@ -98,4 +87,17 @@ function httpGetAsync(headers, url, callback)
     xmlHttp.setRequestHeader('Authorization', headers['Authorization']);
     xmlHttp.send(null);
     return xmlHttp.responseText;
+}
+
+window.onload = function(){
+    console.log("checking to see if updated");
+
+    let iframe = document.querySelector('iframe');
+    let player = new Twitch.Player(iframe);
+
+    console.log("player", player);
+
+    player.on('ENDED', function() {
+        console.log('Video play completed');
+    });
 }
