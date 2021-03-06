@@ -10,11 +10,9 @@ const DISPLAY_DURATION = 10 * 1000; // 10 seconds
 
 ComfyJS.Init(twitchTvHandle);
 ComfyJS.onCommand = (user, command, message, flags, extra) => {
-  console.log(`!${command} was typed in chat`);
-};
-
-ComfyJS.onChat = (user, message, flags, self, extra) => {
-  console.log(user + ":", message);
+  if((command == "reload") && (flags.mod)) {
+      initialPostFunction();
+  }
 };
 /* ----------------------------------------- COMFY JS END----------------------------------------------------------*/
 
@@ -37,7 +35,7 @@ function initialPostFunction() {
         
         const clipOptions = {
             //'https://api.twitch.tv/helix/users?login=blueexabyte',
-            url: 'https://api.twitch.tv/helix/clips?broadcaster_id=' + brodcasterID + '&first=100',
+            url: 'https://api.twitch.tv/helix/clips?broadcaster_id=' + brodcasterID + '&first=1000',
             method: 'GET',
             headers:{
                 'Client-ID': '4z8jrmlca65cyeio9vvrsc99xe5c70',
