@@ -1,6 +1,6 @@
 let clipURL = 'test'
 let sourcePre = 'https://clips.twitch.tv/embed?clip='
-let sourceSuff = '&parent=www.blueexabyte.github.io&parent=blueexabyte.github.io'
+let sourceSuff = '&parent=www.blueexabyte.github.io&parent=blueexabyte.github.io&autoplay=true'
 let brodcasterID = '58115189';
 
 const options = {
@@ -67,7 +67,8 @@ function httpGetAsync(headers, url, callback)
           callback(xmlHttp.responseText);
     }
     xmlHttp.open("GET", url, true);
-    xmlHttp.setRequestHeader(headers);
+    xmlHttp.setRequestHeader('Client-ID', headers['Client-ID']);
+    xmlHttp.setRequestHeader('Authorization', headers['Authorization']);
     xmlHttp.send(null);
     return xmlHttp.responseText;
 }
