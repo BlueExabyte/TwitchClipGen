@@ -1,48 +1,14 @@
 <script src= "https://player.twitch.tv/js/embed/v1.js"></script>
 
-<div id="twitch-embed"></div>
-<br>
-<iframe
-id="displayFrame"
-src="https://clips.twitch.tv/embed?clip=TolerantBelovedVultureHotPokket-hJegeQ-T9b38YTkR&parent=www.blueexabyte.github.io&parent=blueexabyte.github.io"
-height="1080"
-width="1920"
-allowfullscreen="true"
-autoplay="true"
->
+<video
+    id="displayFrame"
+    src="https://clips.twitch.tv/embed?clip=TolerantBelovedVultureHotPokket-hJegeQ-T9b38YTkR&parent=www.blueexabyte.github.io&parent=blueexabyte.github.io"
+    height="1080"
+    width="1920"
+    allowfullscreen="true"
+    autoplay="true"
+></video>
 
 <script type="text/javascript">
-/*
-    var options = {
-        width: 1920,
-        height: 1080,
-        channel: "BlueExabyte",
-        video: "TolerantBelovedVultureHotPokket-hJegeQ-T9b38YTkR",
-        // only needed if your site is also embedded on embed.example.com and othersite.example.com
-        parent: ["www.blueexabyte.github.io", "blueexabyte.github.io"]
-    };
 
-    let iframe = document.querySelector('iframe');
-    let player = new Twitch.Player(iframe, options);
-    //var player = new Twitch.Player("SamplePlayerDivID", options);
-    player.setVolume(0.5);
-    player.on('ENDED', function() {
-        console.log('Video play completed');
-    });
-*/    
-    var embed = new Twitch.Embed("twitch-embed", {
-        width: 1920,
-        height: 1080,
-        channel: "blueexabyte",
-        layout: "video",
-        autoplay: true,
-        // only needed if your site is also embedded on embed.example.com and othersite.example.com 
-        parent: ["www.blueexabyte.github.io", "blueexabyte.github.io"]
-    });
-  
-    embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
-        var player = embed.getPlayer();
-        player.play();
-    });
-      
 </script>
