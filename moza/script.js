@@ -1,16 +1,16 @@
 let clipURL = 'test'
 let sourcePre = 'https://clips.twitch.tv/embed?clip='
 let sourceSuff = '&parent=www.blueexabyte.github.io&parent=blueexabyte.github.io&autoplay=true'
-let brodcasterID = '186745142'; //186745142
+let brodcasterID = '58115189'; //186745142
 
 /* ----------------------------------------- COMFY JS ------------------------------------------------------------*/
-const twitchTvHandle = "sooomoza"; //"sooomoza"
+const twitchTvHandle = "BlueExabyte"; //"sooomoza"
 const PAUSE_DURATION = 30 * 1000; // 30 seconds
 const DISPLAY_DURATION = 10 * 1000; // 10 seconds
 
 ComfyJS.Init(twitchTvHandle);
 ComfyJS.onCommand = (user, command, message, flags, extra) => {
-  if(flags.mod) {
+  if((flags.mod) || (flags.broadcaster)) {
       if(command == "reload") {
         initialPostFunction();
       }
