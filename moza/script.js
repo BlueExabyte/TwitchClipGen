@@ -1,17 +1,22 @@
 let clipURL = 'test'
 let sourcePre = 'https://clips.twitch.tv/embed?clip='
 let sourceSuff = '&parent=www.blueexabyte.github.io&parent=blueexabyte.github.io&autoplay=true'
-let brodcasterID = '186745142'; //
+let brodcasterID = '58115189'; //186745142
 
 /* ----------------------------------------- COMFY JS ------------------------------------------------------------*/
-const twitchTvHandle = "sooomoza"; //""
+const twitchTvHandle = "BlueExabyte"; //"sooomoza"
 const PAUSE_DURATION = 30 * 1000; // 30 seconds
 const DISPLAY_DURATION = 10 * 1000; // 10 seconds
 
 ComfyJS.Init(twitchTvHandle);
 ComfyJS.onCommand = (user, command, message, flags, extra) => {
-  if((command == "reload") && (flags.mod)) {
-      initialPostFunction();
+  if(flags.mod) {
+      if(command == "reload") {
+        initialPostFunction();
+      }
+      if(command == "skip") {
+        initialPostFunction();
+      }
   }
 };
 /* ----------------------------------------- COMFY JS END----------------------------------------------------------*/
@@ -59,12 +64,8 @@ function initialPostFunction() {
 
             let durationAPI = httpGetAsyncKraken(clipOptions.headers, 'https://api.twitch.tv/kraken/clips/' + randomClip, function(krakenResponse) {
                 let krakenResult = JSON.parse(krakenResponse)
-                //console.log("debug kraken stuff updated 10:23pm  --------------------------");
-                //console.log('https://api.twitch.tv/kraken/clips/' + randomClip);
-                //console.log(krakenResult);
-                //console.log("the clip durations is:\t" + krakenResult["duration"]);
                 if((krakenResult["duration"] != null) || (krakenResult["duration"] != undefined)) {
-                    setTimeout(initialPostFunction,krakenResult["duration"]*1000 + 3000);
+                    setTimeout(initialPostFunction,krakenResult["duration"]*1000);
                 }
             });
         });
