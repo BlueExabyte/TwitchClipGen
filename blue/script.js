@@ -10,7 +10,7 @@ const DISPLAY_DURATION = 10 * 1000; // 10 seconds
 
 ComfyJS.Init(twitchTvHandle);
 ComfyJS.onCommand = (user, command, message, flags, extra) => {
-  if(flags.mod) {
+  if((flags.mod) || (flags.broadcaster)) {
       if(command == "reload") {
         initialPostFunction();
       }
