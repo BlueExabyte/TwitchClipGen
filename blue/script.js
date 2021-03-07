@@ -59,12 +59,12 @@ function initialPostFunction() {
 
             let durationAPI = httpGetAsyncKraken(clipOptions.headers, 'https://api.twitch.tv/kraken/clips/' + randomClip, function(krakenResponse) {
                 let krakenResult = JSON.parse(krakenResponse)
-                console.log("debug kraken stuff updated 10:23pm  --------------------------");
-                console.log('https://api.twitch.tv/kraken/clips/' + randomClip);
-                console.log(krakenResult);
-                console.log("the clip durations is:\t" + krakenResult["duration"]);
+                //console.log("debug kraken stuff updated 10:23pm  --------------------------");
+                //console.log('https://api.twitch.tv/kraken/clips/' + randomClip);
+                //console.log(krakenResult);
+                //console.log("the clip durations is:\t" + krakenResult["duration"]);
                 if((krakenResult["duration"] != null) || (krakenResult["duration"] != undefined)) {
-                setTimeout(initialPostFunction,krakenResult["duration"]*1000 + 3000);
+                    setTimeout(initialPostFunction,krakenResult["duration"]*1000 + 3000);
                 }
             });
         });
