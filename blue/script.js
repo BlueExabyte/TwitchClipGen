@@ -52,23 +52,18 @@ function initialPostFunction() {
                 clipsArray.push(apiResult['data'][i]['id']);
             }
 
-            clipURL = sourcePre + String(clipsArray[Math.floor(Math.random() * clipsArray.length)]) + sourceSuff;
+            let randomClip = String(clipsArray[Math.floor(Math.random() * clipsArray.length)]);
+            clipURL = sourcePre + randomClip + sourceSuff;
             console.log(clipURL);
             document.getElementById('displayFrame').src = clipURL;
 
-            console.log("checking to see if updated");
-        
-            let iframe = document.querySelector('iframe');
-            let player = new Twitch.Player(iframe);
-        
-            console.log("player", player);
-        
-            player.on('ENDED', function() {
-                console.log('Video play completed');
+            let durationAPI = httpGetAsyncKraken(clipOptions.headers, 'https://api.twitch.tv/kraken/clips/' + randomClip, function(krakenResponse) {
+                console.log("the clip durations is:\t" + krakenResponse['duration']);
             });
         });
     });
 }
+
 // POST CALL
 function httpPostAsync(data, url, callback) {
   
@@ -83,7 +78,7 @@ function httpPostAsync(data, url, callback) {
     return xhr.responseText;
 }
 
-// GET CALL
+// GET HELIX CALL
 function httpGetAsync(headers, url, callback)
 {
     var xmlHttp = new XMLHttpRequest();
@@ -94,6 +89,22 @@ function httpGetAsync(headers, url, callback)
     xmlHttp.open("GET", url, true);
     xmlHttp.setRequestHeader('Client-ID', headers['Client-ID']);
     xmlHttp.setRequestHeader('Authorization', headers['Authorization']);
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
+}
+
+// GET KRAKEN CALL
+function httpGetAsyncKraken(headers, url, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+          callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", url, true);
+    xmlHttp.setRequestHeader('Client-ID', headers['Client-ID']);
+    xmlHttp.setRequestHeader('Authorization', headers['Authorization']);
+    xmlHttp.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
     xmlHttp.send(null);
     return xmlHttp.responseText;
 }
