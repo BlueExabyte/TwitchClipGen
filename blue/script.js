@@ -61,7 +61,7 @@ function initialPostFunction() {
                 console.log("debug kraken stuff --------------------------");
                 console.log('https://api.twitch.tv/kraken/clips/' + randomClip);
                 console.log(krakenResponse);
-                console.log("the clip durations is:\t" + krakenResponse['duration']);
+                console.log("the clip durations is:\t" + krakenResponse["duration"]);
             });
         });
     });
