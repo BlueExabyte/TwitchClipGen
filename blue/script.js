@@ -59,7 +59,7 @@ function initialPostFunction() {
 
             let durationAPI = httpGetAsyncKraken(clipOptions.headers, 'https://api.twitch.tv/kraken/clips/' + randomClip, function(krakenResponse) {
                 let krakenResult = JSON.parse(krakenResponse)
-                console.log("debug kraken stuff --------------------------");
+                console.log("debug kraken stuff updated 10:18pm --------------------------");
                 console.log('https://api.twitch.tv/kraken/clips/' + randomClip);
                 console.log(krakenResult);
                 console.log("the clip durations is:\t" + krakenResult["duration"]);
