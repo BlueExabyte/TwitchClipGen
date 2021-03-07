@@ -58,11 +58,14 @@ function initialPostFunction() {
             document.getElementById('displayFrame').src = clipURL;
 
             let durationAPI = httpGetAsyncKraken(clipOptions.headers, 'https://api.twitch.tv/kraken/clips/' + randomClip, function(krakenResponse) {
+                let krakenResult = JSON.parse(krakenResponse)
                 console.log("debug kraken stuff --------------------------");
                 console.log('https://api.twitch.tv/kraken/clips/' + randomClip);
-                console.log(krakenResponse);
-                console.log("the clip durations is:\t" + krakenResponse["duration"]);
-                setTimeout(initialPostFunction,krakenResponse["duration"]);
+                console.log(krakenResult);
+                console.log("the clip durations is:\t" + krakenResult["duration"]);
+                if((krakenResult["duration"] != null) || (krakenResult["duration"] != undefined)) {
+                setTimeout(initialPostFunction,krakenResult["duration"]);
+                }
             });
         });
     });
